@@ -52,14 +52,13 @@ def check_processing():
 
   for message in consumer:
     message = message.value
-    print(str(message))
     if message["eventID"] == event_id:
+      consumer.close()
       print("[>] RESPONSE FOUND: ")
       print(str(message))
       if not message["hasConsent"]:
         return Response("Processing for the request with policy: " + str(raw_policy) + " has been denied", 401, {})
       else:
         return Response("Processing for the request with policy: " + str(raw_policy) + " has been approved", 204, {})
-      break
 
   return Response("Compliance check for processing for the request with policy: " + str(raw_policy) + " is not found", 500, {})
