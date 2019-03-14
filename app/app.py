@@ -14,13 +14,15 @@ app = flask.Flask(__name__)
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
-producer = KafkaProducer(bootstrap_servers=['kafka:9092'],
-                         value_serializer=lambda x:
-                         dumps(x).encode('utf-8'))
-
+def init_producer():
+  return KafkaProducer(bootstrap_servers=['kafka:9092'],
+                           value_serializer=lambda x:
+                           dumps(x).encode('utf-8'))
 
 def put_policy_on_kafka(policy):
-  producer.send("application-logs", policy)
+    producer = init_producer()
+    producer.send("application-logs", policy)
+    producer.close()
 
 @app.route('/processing', methods=['POST'])
 def check_processing():
