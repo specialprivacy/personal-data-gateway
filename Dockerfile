@@ -10,7 +10,7 @@ RUN pip install filepath
 RUN pip install kafka-python
 RUN pip install requests
 
-COPY . /app/
+COPY ./app/ /app/
 
 ENV PYTHONUNBUFFERED=1
 
