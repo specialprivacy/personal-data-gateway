@@ -7,7 +7,7 @@ In case the processing is compliant with the data subjects consent then the resp
 # Example
 
 ## Scenario
-Suppose we want to check whether or not application A can perform some administrative analysis on the anonymized data of data subject 5d8025c2-7c41-4fa6-a993-b84e6b3fe7ac on a server within the EU. 
+Suppose we want to check whether or not application 1 can perform some administrative analysis on the copied data of data subject user-1 on a server within the EU. 
 
 ## request
 Then we could make a POST request to 
@@ -20,13 +20,13 @@ where http://localhost should be replaced with the address of the server on whic
 For the above example the body should then be:
 ```
 {
-  "process": "Application A",
-  "purpose": "Admin",
-  "processing": "Analyze",
-  "recipient": "Ours",
-  "storage": "EU",
-  "userID": "5d8025c2-7c41-4fa6-a993-b84e6b3fe7ac",
-  "data": "Anonymized"
+  "process": "application1",
+  "purpose": "http://www.specialprivacy.eu/vocabs/purposes#Admin",
+  "processing": "http://www.specialprivacy.eu/vocabs/processing#Copy",
+  "recipient": "http://www.specialprivacy.eu/vocabs/recipientsSame",
+  "storage": "http://www.specialprivacy.eu/vocabs/locations#EULike",
+  "userID": "user-1",
+  "data": ["http://www.specialprivacy.eu/vocabs/data#Derived"]
 }
 ```
 ## response
@@ -34,16 +34,12 @@ If the processing is consentual then the response will be:
 ```
 HTTP 204
 ```
-```
-Processing for the request with policy: {'process': 'Application A', 'purpose': 'Admin', 'processing': 'Analyze', 'recipient': 'Ours', 'storage': 'EU', 'userID': '5d8025c2-7c41-4fa6-a993-b84e6b3fe7ac', 'data': 'Anonymized'} has been approved
-```
-
 Otherwise it will be:
 ```
 HTTP 401
 ```
 ```
-Processing for the request with policy: {'process': 'Application A', 'purpose': 'Admin', 'processing': 'Analyze', 'recipient': 'Ours', 'storage': 'EU', 'userID': '5d8025c2-7c41-4fa6-a993-b84e6b3fe7ac', 'data': 'Anonymized'} has been denied
+Processing for the request with policy: {'process': 'application1', 'purpose': 'http://www.specialprivacy.eu/vocabs/purposes#Admin', 'processing': 'http://www.specialprivacy.eu/vocabs/processing#Copy', 'recipient': 'http://www.specialprivacy.eu/vocabs/recipientsSame', 'storage': 'http://www.specialprivacy.eu/vocabs/locations#EULike', 'userID': 'user-1', 'data': ['http://www.specialprivacy.eu/vocabs/data#Derived']} has been denied
 ```
 
 ## application-logs
