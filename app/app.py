@@ -29,14 +29,12 @@ def check_processing():
   policy = {
     "timestamp": str(current_milli_time()),
     "process": raw_policy["process"],
-    "purpose": "http://www.specialprivacy.eu/vocabs/purposes#" + raw_policy["purpose"],
-    "processing": "http://www.specialprivacy.eu/vocabs/processing#" + raw_policy["processing"],
-    "recipient": "http://www.specialprivacy.eu/vocabs/recipients#" + raw_policy["recipient"],
-    "storage": "http://www.specialprivacy.eu/vocabs/locations#" + raw_policy["storage"],
+    "purpose": raw_policy["purpose"],
+    "processing": raw_policy["processing"],
+    "recipient": raw_policy["recipient"],
+    "storage": raw_policy["storage"],
     "userID": raw_policy["userID"],
-    "data": [
-      "http://www.specialprivacy.eu/vocabs/data#" + raw_policy["data"]
-    ],
+    "data": raw_policy["data"],
     "eventID": event_id
   }
 
