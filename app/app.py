@@ -31,12 +31,7 @@ def check_processing():
   policy = {
     "timestamp": str(current_milli_time()),
     "process": raw_policy["process"],
-    "purpose": raw_policy["purpose"],
-    "processing": raw_policy["processing"],
-    "recipient": raw_policy["recipient"],
-    "storage": raw_policy["storage"],
     "userID": raw_policy["userID"],
-    "data": raw_policy["data"],
     "eventID": event_id
   }
 
