@@ -26,14 +26,10 @@ def put_policy_on_kafka(policy):
 
 @app.route('/processing', methods=['POST'])
 def check_processing():
-  raw_policy = json.loads(flask.request.data)
+  policy = json.loads(flask.request.data)
   event_id = str(uuid.uuid4())
-  policy = {
-    "timestamp": str(current_milli_time()),
-    "process": raw_policy["process"],
-    "userID": raw_policy["userID"],
-    "eventID": event_id
-  }
+  policy["timestamp"] = str(current_milli_time())
+  policy["eventID"] = event_id
 
   print("[*] PUTTING POLICY ON KAFKA " + str(policy))
   put_policy_on_kafka(policy)
@@ -54,8 +50,8 @@ def check_processing():
       print("[>] RESPONSE FOUND: ")
       print(str(message))
       if not message["hasConsent"]:
-        return Response("Processing for the request with policy: " + str(raw_policy) + " has been denied", 401, {})
+        return Response("Processing for the request with policy: " + str(policy) + " has been denied", 401, {})
       else:
-        return Response("Processing for the request with policy: " + str(raw_policy) + " has been approved", 204, {})
+        return Response("Processing for the request with policy: " + str(policy) + " has been approved", 204, {})
 
-  return Response("Compliance check for processing for the request with policy: " + str(raw_policy) + " is not found", 500, {})
+  return Response("Compliance check for processing for the request with policy: " + str(policy) + " is not found", 500, {})
